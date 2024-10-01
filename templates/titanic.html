@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Titanic Survival Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            background-color: #121212;
+            /* Darker background */
+            color: #fff;
+            /* White text for contrast */
+        }
+
+
+        .content {
+            flex-grow: 1;
+            padding: 30px;
+        }
+
+        .form-container {
+            max-width: 600px;
+            margin: auto;
+            padding: 30px;
+            border-radius: 10px;
+            background-color: #222;
+            /* Dark background for form container */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            /* Subtle shadow for depth */
+        }
+
+        .form-container h2 {
+            text-align: center;
+            color: #ffcc00;
+            /* Yellow heading */
+        }
+
+        .form-container label {
+            font-weight: bold;
+            /* Bold labels */
+        }
+
+        .form-container input,
+        .form-container select {
+            width: calc(100% - 22px);
+            /* Adjust width for padding */
+            padding: 12px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: 1px solid #444;
+            /* Darker input borders */
+            background-color: #333;
+            /* Dark background for inputs */
+            color: #fff;
+            /* White text in inputs */
+        }
+
+        .form-container input[type="submit"] {
+            background-color: #4CAF50;
+            /* Green submit button */
+            color: white;
+            border: none;
+            cursor: pointer;
+            /* Pointer cursor on hover */
+        }
+
+        .form-container input[type="submit"]:hover {
+            background-color: #45a049;
+            /* Slightly darker green on hover */
+        }
+
+        .result {
+            font-size: 1.5em;
+            color: #4CAF50;
+            /* Green text for results */
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        /* Media Queries for Responsiveness */
+
+        @media only screen and (max-width: 768px) {
+
+
+
+            .form-container {
+                padding: 20px;
+                max-width: 90%;
+                /* Adjust width for smaller screens */
+            }
+        }
+
+        @media only screen and (max-width: 480px) {
+
+            /* For mobile phones */
+            body {
+                flex-direction: column;
+                /* Stack sidebar and content */
+            }
+
+            .sidebar {
+                width: 100%;
+                padding: 10px;
+                border-right: none;
+                border-bottom: 1px solid #444;
+                /* Adjust sidebar styling for mobile */
+            }
+
+            .content {
+                padding: 15px;
+            }
+
+            .form-container {
+                padding: 15px;
+                max-width: 100%;
+                /* Full-width form on mobile */
+            }
+
+            .form-container input,
+            .form-container select {
+                width: 100%;
+                /* Full-width inputs and selects on mobile */
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="content">
+        <div id="titanic_prediction" class="form-container">
+            <h2>Titanic Survival Prediction</h2>
+            <form action="/titanic_predict" method="post">
+                <label for="Age">Age:</label>
+                <input type="number" name="Age" required>
+
+                <label for="Pclass">Passenger Class:</label>
+                <select name="Pclass" required>
+                    <option value="">Select Class</option>
+                    <option value="1">1st Class</option>
+                    <option value="2">2nd Class</option>
+                    <option value="3">3rd Class</option>
+                </select>
+
+                <label for="sex_n">Sex (0 = Female, 1 = Male):</label>
+                <input type="number" name="sex_n" min="0" max="1" required>
+
+                <label for="Fare">Fare:</label>
+                <input type="number" step="0.01" name="Fare" required>
+
+                <input type="submit" value="Predict">
+            </form>
+
+            {% if prediction_text %}
+            <div class="result">{{ prediction_text }}</div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+
+</html>
